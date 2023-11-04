@@ -7,8 +7,11 @@ public class Results {
     private int semester;
     private int stateChange;
 
-    Results(){
-        courses = new ArrayList<>();
+    public Results(){
+        courses = new ArrayList<>(26);
+        for(int i=0; i<26; i++){
+            courses.add('\0');
+        }
         semester = 0;
         stateChange = 0;
     }
@@ -44,5 +47,12 @@ public class Results {
                 ", semester=" + semester +
                 ", stateChange=" + stateChange +
                 '}';
+    }
+
+    public void printResults(){
+        for(int i=0; i<courses.size(); i++){
+            System.out.print(courses.get(i)+" ");
+            System.out.print(stateChange);
+        }
     }
 }
