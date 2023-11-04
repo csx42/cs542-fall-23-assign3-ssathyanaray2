@@ -6,31 +6,14 @@ import java.util.Map;
 
 public abstract class CourseSequencerStateI {
 
-    protected static Map<Character,Boolean> courses = new HashMap<>(26);
-    protected static int groupOne =0;
-    protected static int groupTwo =0;
-    protected static int groupThree =0;
-    protected static int groupFour =0;
-    protected static int groupFive =0;
-
-    public static ArrayList<Character> waitList = new ArrayList<>();
-
-    public boolean processCourse(char course, char start){
-        for(char i=start; i<course; i++){
-            if(!courses.get(i)){
-                waitList.add(course);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isGraduated(){
-        if(groupOne==2 && groupTwo==2 && groupThree==2 && groupFour==2 && groupFive==2){
-            return true;
-        }
-        return false;
-    }
-
-
+    public abstract void processCourseAD(char course);
+    public abstract void processCourseEH(char course);
+    public abstract void processCourseIL(char course);
+    public abstract void processCourseMP(char course);
+    public abstract void processCourseQZ(char course);
+    public abstract char presentState();
+    public abstract void assignState();
+    public abstract boolean processCourse(char course, char start);
+    public abstract boolean isGraduated();
+    public abstract void registerCourse(char course);
 }
