@@ -3,7 +3,13 @@ package courseSequencer.context;
 import courseSequencer.state.*;
 import courseSequencer.util.Results;
 
-import java.util.ArrayList;
+/**
+ * This class acts as context class in a state pattern. The state object appears to be changing based on the courses allocated.
+ * @author Spoorthi
+ * @version 1.0
+ * @since 2023-11-12
+ */
+
 
 public class CourseSequencer {
     public CourseSequencerStateI state;
@@ -13,37 +19,50 @@ public class CourseSequencer {
     public CourseSequencerStateI stateFour;
     public CourseSequencerStateI stateFive;
     public CourseSequencerStateI graduated;
-    public Results results;
-    public ArrayList<Character> waitList = new ArrayList<>();
 
-    public CourseSequencer(){
-        results = new Results();
+    /**
+     * initialize all the states and assign state to stateOne which is the initial state.
+     * @param results initialize with result object.
+     */
+    public CourseSequencer(Results results){
+
         stateOne = new CourseSequencerStateOne(this,results);
         stateTwo = new CourseSequencerStateTwo(this,results);
         stateThree = new CourseSequencerStateThree(this,results);
         stateFour = new CourseSequencerStateFour(this,results);
         stateFive = new CourseSequencerStateFive(this,results);
         graduated = new CourseSequencerStateGraduated(this,results);
-        state = stateOne;
+        state = stateOne; //initial state is stateOne.
+
     }
 
-    public void processCoursesForStudents(){
-        char[] array = {'A', 'B', 'C', 'D'};
-        for(int i=0; i<4; i++){
-            state.registerCourse(array[i]);
-        }
-        graduated.registerCourse('\0');
+    /**
+     * The method register courses - calls state.registerCourse method.
+     * @param course
+     */
+    public void registerCourses(Character course){
+        state.registerCourse(course);
     }
 
+    /**
+     * set state
+     * @param stateIn state
+     */
     public void setState(CourseSequencerStateI stateIn){
         state = stateIn;
     }
 
-    public ArrayList<Character> getWaitList() {
-        return waitList;
-    }
-
+    /**
+     * @return state
+     */
     public CourseSequencerStateI getState() {
         return state;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseSequencer{" +
+                "state=" + state +
+                '}';
     }
 }

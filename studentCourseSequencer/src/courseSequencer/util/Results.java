@@ -3,25 +3,28 @@ package courseSequencer.util;
 import java.util.ArrayList;
 
 public class Results {
-    private ArrayList<Character> courses;
+
+    String studentID;
     private int semester;
     private int stateChange;
+    private ArrayList<Character> registeredCourses;
 
     public Results(){
-        courses = new ArrayList<>(26);
-        for(int i=0; i<26; i++){
-            courses.add('\0');
-        }
+        registeredCourses = new ArrayList<>();
         semester = 0;
         stateChange = 0;
     }
 
-    public void incrementSemester(){
-        semester+=1;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public ArrayList<Character> getCourses() {
-        return courses;
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
+    public void incrementSemester(){
+        semester+=1;
     }
 
     public int getSemester() {
@@ -37,22 +40,23 @@ public class Results {
     }
 
     public void addCourse(char course){
-        courses.add(course);
+        registeredCourses.add(course);
     }
 
     @Override
     public String toString() { //change it to required format.
         return "Results{" +
-                "courses=" + courses +
                 ", semester=" + semester +
                 ", stateChange=" + stateChange +
                 '}';
     }
 
     public void printResults(){
-        for(int i=0; i<courses.size(); i++){
-            System.out.print(courses.get(i)+" ");
-            System.out.print(stateChange);
+        System.out.print(studentID+": ");
+        for(int i=0; i<registeredCourses.size(); i++){
+            System.out.print(registeredCourses.get(i)+" ");
         }
+        System.out.print(semester+" ");
+        System.out.print(stateChange);
     }
 }

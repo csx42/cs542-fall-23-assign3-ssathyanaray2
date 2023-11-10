@@ -1,19 +1,15 @@
 package courseSequencer.state;
 
 import courseSequencer.context.CourseSequencer;
+import courseSequencer.helper.StateUtil;
 import courseSequencer.util.Results;
-
-import java.util.regex.Pattern;
 
 public class CourseSequencerStateGraduated extends CourseSequencerStateI {
     CourseSequencer courseSequencer;
     Results results;
-    int [] group;
-
     public CourseSequencerStateGraduated(CourseSequencer courseSequencerIn, Results resultsIn){
         courseSequencer = courseSequencerIn;
         results = resultsIn;
-        group = new int[5];
     }
     @Override
     public void processCourseAD(char course) {
@@ -41,26 +37,19 @@ public class CourseSequencerStateGraduated extends CourseSequencerStateI {
     }
 
     @Override
-    public char presentState() {
-        System.out.println("Invalid operation");
-        return 'a';
-    }
-
-    public void assignState(){
-        System.out.println("Invalid operation");
-    }
-
     public void registerCourse(char course){
+        if(StateUtil.semesterSubjects.size()!=0){
+            results.incrementSemester();
+        }
         results.printResults();
+        System.exit(0);
     }
 
-    public boolean processCourse(char course, char start)
-    {
-        System.out.println("Invalid operation");
-        return false;
-    }
-    public  boolean isGraduated() {
-        System.out.println("Invalid operation");
-        return true;
+    @Override
+    public String toString() {
+        return "CourseSequencerStateGraduated{" +
+                "courseSequencer=" + courseSequencer +
+                ", results=" + results +
+                '}';
     }
 }

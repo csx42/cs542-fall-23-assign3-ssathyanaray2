@@ -1,10 +1,12 @@
 package courseSequencer.driver;
 
-import courseSequencer.context.CourseSequencer;
+import courseSequencer.helper.CourseAllocator;
 
 public class Driver {
     public static void main(String[] args) {
-        CourseSequencer courseSequencer = new CourseSequencer();
-        courseSequencer.processCoursesForStudents();
+
+        CourseAllocator courseAllocator = new CourseAllocator();
+        courseAllocator.processCoursesForStudents(args);
+
     }
 }

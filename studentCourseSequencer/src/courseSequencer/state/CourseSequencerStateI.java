@@ -1,8 +1,6 @@
 package courseSequencer.state;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.regex.Pattern;
 
 public abstract class CourseSequencerStateI {
 
@@ -11,9 +9,26 @@ public abstract class CourseSequencerStateI {
     public abstract void processCourseIL(char course);
     public abstract void processCourseMP(char course);
     public abstract void processCourseQZ(char course);
-    public abstract char presentState();
-    public abstract void assignState();
-    public abstract boolean processCourse(char course, char start);
-    public abstract boolean isGraduated();
-    public abstract void registerCourse(char course);
+
+    public void registerCourse(char course){
+        if(Pattern.matches("[A-D]", Character.toString(course))){
+            processCourseAD(course);
+        }
+
+        else if(Pattern.matches("[E-H]", Character.toString(course))){
+            processCourseEH(course);
+        }
+
+        if(Pattern.matches("[I-L]", Character.toString(course))){
+            processCourseIL(course);
+        }
+
+        if(Pattern.matches("[M-P]", Character.toString(course))){
+            processCourseMP(course);
+        }
+
+        if(Pattern.matches("[Q-Z]", Character.toString(course))){
+            processCourseQZ(course);
+        }
+    }
 }
