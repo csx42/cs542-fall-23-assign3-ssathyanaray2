@@ -19,6 +19,7 @@ public class CourseSequencer {
     public CourseSequencerStateI stateFour;
     public CourseSequencerStateI stateFive;
     public CourseSequencerStateI graduated;
+    public CourseSequencerStateI error;
 
     /**
      * initialize all the states and assign state to stateOne which is the initial state.
@@ -31,7 +32,8 @@ public class CourseSequencer {
         stateThree = new CourseSequencerStateThree(this,results);
         stateFour = new CourseSequencerStateFour(this,results);
         stateFive = new CourseSequencerStateFive(this,results);
-        graduated = new CourseSequencerStateGraduated(this,results);
+        graduated = new CourseSequencerStateGraduated(results);
+        error = new CourseSequencerStateError(results);
         state = stateOne; //initial state is stateOne.
 
     }

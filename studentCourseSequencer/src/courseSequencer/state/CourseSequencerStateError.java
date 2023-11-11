@@ -3,15 +3,13 @@ package courseSequencer.state;
 import courseSequencer.helper.StateUtil;
 import courseSequencer.util.Results;
 
-
-public class CourseSequencerStateGraduated extends CourseSequencerStateI {
+public class CourseSequencerStateError extends CourseSequencerStateI {
 
     Results results;
 
-    public CourseSequencerStateGraduated(Results resultsIn){
+    public CourseSequencerStateError(Results resultsIn){
         results = resultsIn;
     }
-
     @Override
     public void processCourseAD(char course) {
         System.out.println("Invalid operation");
@@ -43,13 +41,7 @@ public class CourseSequencerStateGraduated extends CourseSequencerStateI {
             results.incrementSemester();
         }
         results.printResults();
+        System.out.println("\nStudent has not been graduated.");
         System.exit(0);
-    }
-
-    @Override
-    public String toString() {
-        return "CourseSequencerStateGraduated{" +
-                ", results=" + results +
-                '}';
     }
 }

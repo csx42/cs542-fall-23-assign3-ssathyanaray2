@@ -3,6 +3,7 @@ package courseSequencer.helper;
 import courseSequencer.context.CourseSequencer;
 import courseSequencer.util.FileInput;
 import courseSequencer.util.FileInputInterface;
+import courseSequencer.util.FileOutput;
 import courseSequencer.util.Results;
 
 import java.io.IOException;
@@ -49,11 +50,28 @@ public class CourseAllocator {
             results.setStudentID(input[0].replace(input[0].substring(input[0].length() - 1), ""));
 
             for (int i = 0; i < subjectsRequested.size(); i++) {
+                //System.out.println(subjectsRequested.get(i)+" ");
                 courseSequencer.registerCourses(subjectsRequested.get(i));
+
+//                for(int k=0; k<StateUtil.waitList.size(); k++){
+//                    System.out.print(StateUtil.waitList.get(k));
+//                }
+//                System.out.println();
+
+                for (int j = 0; j < StateUtil.waitList.size(); j++) {
+                    //System.out.println(subjectsRequested.get(i)+" "+StateUtil.waitList.get(0));
+                    courseSequencer.registerCourses(StateUtil.waitList.remove(0));
+                }
             }
-            while(StateUtil.waitList.size()!=0){
+
+            StateUtil.addRemainingSubjects(results);
+
+            for(int j=0; j<StateUtil.waitList.size(); j++){
                 courseSequencer.registerCourses(StateUtil.waitList.remove(0));
             }
+
+            courseSequencer.error.registerCourse('\0');
+
         }
         catch (Exception e){
             e.printStackTrace();
