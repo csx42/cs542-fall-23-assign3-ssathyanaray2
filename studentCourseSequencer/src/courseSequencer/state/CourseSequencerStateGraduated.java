@@ -4,7 +4,7 @@ import courseSequencer.helper.StateUtil;
 import courseSequencer.util.Results;
 
 
-public class CourseSequencerStateGraduated extends CourseSequencerStateI {
+public class CourseSequencerStateGraduated implements CourseSequencerStateI {
 
     Results results;
 
@@ -13,37 +13,16 @@ public class CourseSequencerStateGraduated extends CourseSequencerStateI {
     }
 
     @Override
-    public void processCourseAD(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseEH(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseIL(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseMP(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseQZ(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
     public void registerCourse(char course){
         if(StateUtil.semesterSubjects.size()!=0){
             results.incrementSemester();
         }
-        results.printResults();
+        results.printResults("");
         System.exit(0);
+    }
+
+    public void changeGroup(){
+        System.out.println("invalid operation");
     }
 
     @Override

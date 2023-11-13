@@ -4,7 +4,7 @@ import courseSequencer.context.CourseSequencer;
 import courseSequencer.util.Results;
 import courseSequencer.helper.StateUtil;
 
-public class CourseSequencerStateOne extends CourseSequencerStateI {
+public class CourseSequencerStateOne implements CourseSequencerStateI {
     CourseSequencer courseSequencer;
     Results results;
 
@@ -12,29 +12,14 @@ public class CourseSequencerStateOne extends CourseSequencerStateI {
         courseSequencer = courseSequencerIn;
         results = resultsIn;
     }
-    @Override
-    public void processCourseAD(char course) {
-        StateUtil.processCourse(course,'A', 0, courseSequencer,results);
-    }
 
     @Override
-    public void processCourseEH(char course) {
-        StateUtil.processCourse(course,'E',1,courseSequencer,results);
+    public void registerCourse(char course) {
+        StateUtil.registerCourse(course, courseSequencer, results);
     }
 
-    @Override
-    public void processCourseIL(char course) {
-        StateUtil.processCourse(course,'I',2,courseSequencer,results);
-    }
-
-    @Override
-    public void processCourseMP(char course) {
-        StateUtil.processCourse(course,'M',3,courseSequencer,results);
-    }
-
-    @Override
-    public void processCourseQZ(char course) {
-        StateUtil.processCourse(course,'Q',4,courseSequencer,results);
+    public void changeGroup(){
+        StateUtil.changeGroup(courseSequencer,results);
     }
 
     @Override

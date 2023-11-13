@@ -3,36 +3,12 @@ package courseSequencer.state;
 import courseSequencer.helper.StateUtil;
 import courseSequencer.util.Results;
 
-public class CourseSequencerStateError extends CourseSequencerStateI {
+public class CourseSequencerStateError implements CourseSequencerStateI {
 
     Results results;
 
     public CourseSequencerStateError(Results resultsIn){
         results = resultsIn;
-    }
-    @Override
-    public void processCourseAD(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseEH(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseIL(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseMP(char course) {
-        System.out.println("Invalid operation");
-    }
-
-    @Override
-    public void processCourseQZ(char course) {
-        System.out.println("Invalid operation");
     }
 
     @Override
@@ -40,8 +16,17 @@ public class CourseSequencerStateError extends CourseSequencerStateI {
         if(StateUtil.semesterSubjects.size()!=0){
             results.incrementSemester();
         }
-        results.printResults();
-        System.out.println("\nStudent has not been graduated.");
+        results.printResults("\nStudent has not been graduated.");
         System.exit(0);
+    }
+    public void changeGroup(){
+        System.out.println("invalid operation");
+    }
+
+    @Override
+    public String toString() {
+        return "CourseSequencerStateError{" +
+                "results=" + results +
+                '}';
     }
 }

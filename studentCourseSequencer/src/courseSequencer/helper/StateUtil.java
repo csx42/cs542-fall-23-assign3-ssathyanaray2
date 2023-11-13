@@ -5,6 +5,7 @@ import courseSequencer.state.CourseSequencerStateI;
 import courseSequencer.util.Results;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * This class has all the data structures required to store and allocate courses. It acts has helper class for all the states.
@@ -32,7 +33,7 @@ public class StateUtil {
      * @param courseSequencer context class object
      * @param results result class object - to store registered course
      */
-    public static void assignState(CourseSequencer courseSequencer, Results results){
+    public static void changeGroup(CourseSequencer courseSequencer, Results results){
         CourseSequencerStateI oldState = courseSequencer.getState();
         CourseSequencerStateI newState = null;
         if(isGraduated()){
@@ -77,6 +78,11 @@ public class StateUtil {
      */
     public static void processCourse(char course, char start, int group, CourseSequencer courseSequencer, Results results)
     {
+        if(course=='\0'){
+            waitList.add(course);
+            return;
+        }
+
         if(group!=4) {
             for (char i = start; i < course; i++) {
                 int index = i;
@@ -92,7 +98,7 @@ public class StateUtil {
         results.addCourse(course);
         addSemesterSubjects(results,course);
         groupIncrement(group);
-        assignState(courseSequencer,results);
+        changeGroup(courseSequencer,results);
     }
 
     /**
@@ -102,7 +108,7 @@ public class StateUtil {
     public static boolean isGraduated(){
 
         for(int i=0; i<5; i++){
-            if(getGroupCount(i)<2) {
+            if(group[i]<2) {
                 return false;
             }
         }
@@ -265,14 +271,36 @@ public class StateUtil {
         group[index]+=1;
     }
 
-    /**
-     * get group count - number of subjects registered in a group
-     * @param index group index
-     * @return number of subjects registered in a group
-     */
-    public static int getGroupCount(int index){
-        return group[index];
+//
+//    /**
+//     * get group count - number of subjects registered in a group
+//     * @param index group index
+//     * @return number of subjects registered in a group
+//     */
+//    public static int getGroupCount(int index){
+//        return group[index];
+//    }
+
+
+    public static void registerCourse(char course, CourseSequencer courseSequencer, Results results){
+        if(Pattern.matches("[A-D]", Character.toString(course))){
+            processCourse(course,'A', 0, courseSequencer, results);
+        }
+
+        else if(Pattern.matches("[E-H]", Character.toString(course))){
+            processCourse(course,'E',1,courseSequencer,results);
+        }
+
+        if(Pattern.matches("[I-L]", Character.toString(course))){
+            processCourse(course,'I',2,courseSequencer,results);
+        }
+
+        if(Pattern.matches("[M-P]", Character.toString(course))){
+            processCourse(course,'M',3,courseSequencer,results);
+        }
+
+        if(Pattern.matches("[Q-Z]", Character.toString(course))){
+            processCourse(course,'Q',4,courseSequencer,results);
+        }
     }
-
-
 }

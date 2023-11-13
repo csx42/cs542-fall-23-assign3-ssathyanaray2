@@ -1,16 +1,15 @@
 package courseSequencer.helper;
 
 import courseSequencer.context.CourseSequencer;
-import courseSequencer.util.FileInput;
-import courseSequencer.util.FileInputInterface;
-import courseSequencer.util.FileOutput;
-import courseSequencer.util.Results;
+import courseSequencer.util.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * The class reads the input from a file and calls registerCourses in the context class.
@@ -38,8 +37,11 @@ public class CourseAllocator {
 
         argsCheck(args);
         deleteOutputFiles(args);
-        FileInputInterface fileInput = new FileInput(args[0], " ");
+        FileNames.setFileNames(args[0],args[1],args[2]);
+
+        FileInputInterface fileInput = new FileInput(FileNames.getInputFile(), " ");
         fileInput.getFileForRead();
+
         try {
             //taking input
             String[] input = fileInput.readFileContent();
@@ -50,21 +52,16 @@ public class CourseAllocator {
             results.setStudentID(input[0].replace(input[0].substring(input[0].length() - 1), ""));
 
             for (int i = 0; i < subjectsRequested.size(); i++) {
-                //System.out.println(subjectsRequested.get(i)+" ");
                 courseSequencer.registerCourses(subjectsRequested.get(i));
 
-//                for(int k=0; k<StateUtil.waitList.size(); k++){
-//                    System.out.print(StateUtil.waitList.get(k));
-//                }
-//                System.out.println();
-
                 for (int j = 0; j < StateUtil.waitList.size(); j++) {
-                    //System.out.println(subjectsRequested.get(i)+" "+StateUtil.waitList.get(0));
                     courseSequencer.registerCourses(StateUtil.waitList.remove(0));
                 }
             }
 
             StateUtil.addRemainingSubjects(results);
+
+            StateUtil.waitList.add('\0');
 
             for(int j=0; j<StateUtil.waitList.size(); j++){
                 courseSequencer.registerCourses(StateUtil.waitList.remove(0));
@@ -73,7 +70,9 @@ public class CourseAllocator {
             courseSequencer.error.registerCourse('\0');
 
         }
-        catch (Exception e){
+        catch (NullPointerException e){
+            printToTheFile("Input file is empty.",FileNames.getErrorFile());
+            System.out.println("Input file is empty.");
             e.printStackTrace();
         }
         finally {
@@ -89,6 +88,8 @@ public class CourseAllocator {
         try{
             Path myPath = Paths.get(args[1]);
             Files.deleteIfExists(myPath);
+            myPath = Paths.get(args[2]);
+            Files.deleteIfExists(myPath);
         }
         catch(IOException e){
             System.err.println("Unknown File exception.");
@@ -102,11 +103,22 @@ public class CourseAllocator {
      * @param args command line arguments.
      */
     public void argsCheck(String[] args){
-        if (args.length != 2 || args[0].equals("${arg0}") || args[0].isEmpty() || args[1].equals("${arg1}") || args[1].isEmpty()) {
-
-            System.err.println("Error: Incorrect number of arguments. Program accepts 2 arguments.");
+        if (args.length != 3 || args[0].equals("${arg0}") || args[0].isEmpty() || args[1].equals("${arg1}") || args[1].isEmpty() || args[2].equals("${arg2}") || args[2].isEmpty()) {
+            System.err.println("Error: Incorrect number of arguments. Program accepts 3 arguments.");
             System.exit(0);
         }
+    }
+
+    /**
+     * The method prints a string to a file
+     * @param message input to print to a file
+     * @param file file name
+     */
+    public void printToTheFile(String message, String file){
+        FileDisplayInterface print = new FileOutput(file);
+        print.getFileForWrite();
+        print.printOutputToFile(message);
+        print.closeFileWriter();
     }
 
     @Override

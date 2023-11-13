@@ -51,12 +51,25 @@ public class Results {
                 '}';
     }
 
-    public void printResults(){
-        System.out.print(studentID+": ");
+    public void printToTheFile(String message, String file){
+        FileDisplayInterface print = new FileOutput(file);
+        print.getFileForWrite();
+        print.printOutputToFile(message);
+        print.closeFileWriter();
+    }
+
+    public void printResults(String message){
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(studentID+": ");
         for(int i=0; i<registeredCourses.size(); i++){
-            System.out.print(registeredCourses.get(i)+" ");
+            stringBuilder.append(registeredCourses.get(i)+" ");
         }
-        System.out.print(semester+" ");
-        System.out.print(stateChange);
+        stringBuilder.append("-- "+semester+" "+stateChange);
+        stringBuilder.append(message);
+
+        System.out.println(stringBuilder.toString());
+
+        printToTheFile(stringBuilder.toString(), FileNames.getOutputFile());
     }
 }
