@@ -14,9 +14,7 @@ public class CourseSequencerStateError implements CourseSequencerStateI {
 
     @Override
     public void registerCourse(char course, StateUtil stateUtil){
-        if(stateUtil.semesterSubjects.size()!=0){
-            results.incrementSemester();
-        }
+        results.setSemester(0);
         results.printResults("\nStudent has not been graduated.");
         System.exit(0);
     }

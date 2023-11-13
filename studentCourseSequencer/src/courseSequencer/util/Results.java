@@ -31,6 +31,10 @@ public class Results {
         return semester;
     }
 
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
     public int getStateChange() {
         return stateChange;
     }
@@ -72,4 +76,5 @@ public class Results {
 
         printToTheFile(stringBuilder.toString(), FileNames.getOutputFile());
     }
+
 }
