@@ -33,6 +33,8 @@ Description: Compiles your code and generates .class files inside the BUILD fold
 
 Go inside the cs542-fall-23-assign3-ssathyanaray2 folder and then execute the below command.
 
+**Three arguments are required to run the project. **
+
 #### Command: ant -buildfile studentCourseSequencer/src/build.xml run -Darg0=input.txt -Darg1=output.txt -Darg2=error.txt
 
 Description: Runs the code and generates output. 
@@ -41,9 +43,29 @@ Note: Empty lines in the input file gives number format exception.
 
 -----------------------------------------------------------------------
 ## Data Structures Used:
+Results.java
+1) registeredCourses - An arraylist to store list of courses allocated to a student.
 
+StateUtil.java - It is a helper class which contains all the data structures and methods required by each state.
+1) group - It is an array of 5 elements to store number of courses allocated in each group
+2) semesterSubjects - An arraylist used to store courses allocated in current semester(semster in which a student is when a course is being allocated).
+3) courses - An arraylist list to track which all courses the student has already taken. I am using this array list to check pre-requiste condition. It is initialized with 26 null characters.
+4) waitlist - A queue to maintain courses which cannot be allocated before the allocation of its pre-requisites.
 -----------------------------------------------------------------------
 ## Design:
+
+Schema used to register courses in the waitlist:
+
+I have assumed that student would want to take courses in the order mentioned in the input file. Hence I have written code in a such a way that waitlist is checked every time after each course allocation, if any courses in the waitlist is possible to allocated student will be registered to that course.
+
+Eg:
+
+input.txt - B A E I O U
+output - Initially B is added to waitlist since it does not satisfy pre-requisite condition. The algorimthm loops over waitlist after each subject allocation. After allocation of course "I", waitlist is again traversed. This time since "A" has been already allocated, student is allowed to take "B". So course "B" is allocated and is removed from the waitlist.
+
+-----------------------------------------------------------------------
+## State Diagram:
+
 
 -----------------------------------------------------------------------
 ## References:
