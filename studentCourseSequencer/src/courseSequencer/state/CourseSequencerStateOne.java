@@ -14,12 +14,13 @@ public class CourseSequencerStateOne implements CourseSequencerStateI {
     }
 
     @Override
-    public void registerCourse(char course) {
-        StateUtil.registerCourse(course, courseSequencer, results);
+    public void registerCourse(char course, StateUtil stateUtil) {
+        stateUtil.registerCourse(course, courseSequencer, results);
     }
 
-    public void changeGroup(){
-        StateUtil.changeGroup(courseSequencer,results);
+    @Override
+    public void changeGroup(StateUtil stateUtil){
+        stateUtil.changeGroup(courseSequencer,results);
     }
 
     @Override

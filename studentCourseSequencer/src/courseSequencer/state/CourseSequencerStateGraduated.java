@@ -14,15 +14,15 @@ public class CourseSequencerStateGraduated implements CourseSequencerStateI {
     }
 
     @Override
-    public void registerCourse(char course){
-        if(StateUtil.semesterSubjects.size()!=0){
+    public void registerCourse(char course, StateUtil stateUtil){
+        if(stateUtil.semesterSubjects.size()!=0){
             results.incrementSemester();
         }
         results.printResults("");
         System.exit(0);
     }
 
-    public void changeGroup(){
+    public void changeGroup(StateUtil stateUtil){
         MyLogger.writeMessage("Invalid Operation", MyLogger.DebugLevel.ERROR);
     }
 

@@ -21,10 +21,12 @@ public class CourseAllocator {
     Results results;
     CourseSequencer courseSequencer;
 
+    StateUtil stateUtil;
+
     public CourseAllocator(){
         results = new Results();
         courseSequencer = new CourseSequencer(results);
-        StateUtil.initialize();
+        stateUtil = new StateUtil();
     }
 
     /**
@@ -50,30 +52,29 @@ public class CourseAllocator {
             results.setStudentID(input[0].replace(input[0].substring(input[0].length() - 1), ""));
 
             for (Character character : subjectsRequested) {
-                courseSequencer.registerCourses(character);
+                courseSequencer.registerCourses(character, stateUtil);
 
-                for (int j = 0; j < StateUtil.waitList.size(); j++) {
-                    courseSequencer.registerCourses(StateUtil.waitList.remove(0));
+                for (int j = 0; j < stateUtil.waitList.size(); j++) {
+                    courseSequencer.registerCourses(stateUtil.waitList.remove(0),stateUtil);
                 }
             }
 
-            StateUtil.addRemainingSubjects(results);
+            stateUtil.addRemainingSubjects(results);
 
-            StateUtil.waitList.add('\0');
+            stateUtil.waitList.add('\0');
 
-            for(int j=0; j<StateUtil.waitList.size(); j++){
-                courseSequencer.registerCourses(StateUtil.waitList.remove(0));
+            for(int j=0; j<stateUtil.waitList.size(); j++){
+                courseSequencer.registerCourses(stateUtil.waitList.remove(0),stateUtil);
             }
 
-            courseSequencer.error.registerCourse('\0');
+            courseSequencer.error.registerCourse('\0',stateUtil);
 
         }
-        catch (NullPointerException e){
+        catch (NullPointerException | StringIndexOutOfBoundsException e){
             printToTheFile("Input file is empty.",FileNames.getErrorFile());
             MyLogger.writeMessage("Input file is empty.", MyLogger.DebugLevel.ERROR);
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             fileInput.closeFile();
         }
     }

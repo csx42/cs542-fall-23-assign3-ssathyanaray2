@@ -17,23 +17,23 @@ import java.util.regex.Pattern;
 
 public class StateUtil {
 
-    public static ArrayList<Character> semesterSubjects = new ArrayList<>(3);;
-    public static ArrayList<Character> courses = new ArrayList<>(26);
-    public static ArrayList<Character> waitList = new ArrayList<>();
-    public static int[]  group = new int[5];
-
-    public static void initialize(){
+    public StateUtil(){
         for(int i=0; i<26; i++){
             courses.add('\0');
         }
     }
+
+    public  ArrayList<Character> semesterSubjects = new ArrayList<>(3);;
+    public  ArrayList<Character> courses = new ArrayList<>(26);
+    public  ArrayList<Character> waitList = new ArrayList<>();
+    public  int[]  group = new int[5];
 
     /**
      * The method check if a student has graduated, if not sets the state object in context class to appropriate state.
      * @param courseSequencer context class object
      * @param results result class object - to store registered course
      */
-    public static void changeGroup(CourseSequencer courseSequencer, Results results){
+    public  void changeGroup(CourseSequencer courseSequencer, Results results){
         CourseSequencerStateI oldState = courseSequencer.getState();
         CourseSequencerStateI newState = null;
         if(isGraduated()){
@@ -76,11 +76,11 @@ public class StateUtil {
      * @param courseSequencer context class object
      * @param results results object
      */
-    public static void processCourse(char course, char start, int group, CourseSequencer courseSequencer, Results results)
+    public  boolean processCourse(char course, char start, int group, CourseSequencer courseSequencer, Results results)
     {
         if(course=='\0'){
             waitList.add(course);
-            return;
+            return false;
         }
 
         if(group!=4) {
@@ -89,7 +89,7 @@ public class StateUtil {
 
                 if (courses.get(index - 65) == '\0' || semesterSubjects.contains(i)) {
                     waitList.add(course);
-                    return;
+                    return false;
                 }
             }
         }
@@ -98,14 +98,14 @@ public class StateUtil {
         results.addCourse(course);
         addSemesterSubjects(results,course);
         groupIncrement(group);
-        changeGroup(courseSequencer,results);
+        return true;
     }
 
     /**
      * The method check whether student has been graduated.
      * @return boolean value true if the student has graduated else false.
      */
-    public static boolean isGraduated(){
+    public  boolean isGraduated(){
 
         for(int i=0; i<5; i++){
             if(group[i]<2) {
@@ -120,7 +120,7 @@ public class StateUtil {
      * @param results results object
      * @param course course to be added.
      */
-    public static void addSemesterSubjects(Results results, Character course){
+    public  void addSemesterSubjects(Results results, Character course){
 
         semesterSubjects.add(course);
         if(semesterSubjects.size()==3){
@@ -134,7 +134,7 @@ public class StateUtil {
      * Increment semester if there are remaining semester after processing input.
      * @param results results object
      */
-    public static void addRemainingSubjects(Results results){
+    public  void addRemainingSubjects(Results results){
         if(semesterSubjects.size()!=0){
             results.incrementSemester();
             semesterSubjects = new ArrayList<>();
@@ -145,7 +145,7 @@ public class StateUtil {
      * The method decides which state the system should be based on number of courses in each state. The state with most number of courses will be the winner.
      * @return group name
      */
-    public static char presentState() {
+    public  char presentState() {
         int i=25;
         int maximum= -1;
         int noOfCourse=0;
@@ -209,22 +209,18 @@ public class StateUtil {
      * increment a group count by 1.
      * @param index group index to be incremented.
      */
-    public static void groupIncrement(int index) {
+    public  void groupIncrement(int index) {
         group[index]+=1;
     }
 
-//
-//    /**
-//     * get group count - number of subjects registered in a group
-//     * @param index group index
-//     * @return number of subjects registered in a group
-//     */
-//    public static int getGroupCount(int index){
-//        return group[index];
-//    }
-
-
-    public static void registerCourse(char course, CourseSequencer courseSequencer, Results results){
+    
+    /**
+     * The method identify the group to which a course belongs and then calls processCourse method with appropriate arguments.
+     * @param course to be allocated.
+     * @param courseSequencer context object
+     * @param results result object
+     */
+    public  void registerCourse(char course, CourseSequencer courseSequencer, Results results){
         if(Pattern.matches("[A-D]", Character.toString(course))){
             processCourse(course,'A', 0, courseSequencer, results);
         }

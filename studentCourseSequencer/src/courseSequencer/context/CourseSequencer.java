@@ -1,5 +1,6 @@
 package courseSequencer.context;
 
+import courseSequencer.helper.StateUtil;
 import courseSequencer.state.*;
 import courseSequencer.util.Results;
 
@@ -42,8 +43,9 @@ public class CourseSequencer {
      * The method register courses - calls state.registerCourse method.
      * @param course
      */
-    public void registerCourses(Character course){
-        state.registerCourse(course);
+    public void registerCourses(Character course, StateUtil stateUtil){
+        state.registerCourse(course,stateUtil);
+        state.changeGroup(stateUtil);
     }
 
     /**
