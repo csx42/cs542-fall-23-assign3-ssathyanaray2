@@ -65,7 +65,7 @@ output - Initially B is added to waitlist since it does not satisfy pre-requisit
 
 -----------------------------------------------------------------------
 ## State Diagram:
-
+![DP state diagram](https://github.com/csx42/cs542-fall-23-assign3-ssathyanaray2/assets/144637821/2990af21-aa88-4de4-b9b3-5763efb19710)
 
 -----------------------------------------------------------------------
 ## References:
