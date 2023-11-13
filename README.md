@@ -70,6 +70,14 @@ output - Initially B is added to waitlist since it does not satisfy pre-requisit
 -----------------------------------------------------------------------
 ## References:
 
+https://medium.com/@mlbors/what-is-a-finite-state-machine-6d8dec727e2c#:~:text=A%20Finite%20State%20Machine%2C%20or,artificial%20intelligence%2C%20games%20or%20linguistics.
+
+https://sourcemaking.com/design_patterns/state
+
+https://nulab.com/learn/software-development/a-simple-guide-to-drawing-your-first-state-diagram-with-examples/
+
+https://www.youtube.com/watch?v=RljSBrZeJ3w
+
 -----------------------------------------------------------------------
 ## Academic Honesty statement:
 "I have done this assignment completely on my own. I have not copied it, nor have I given my solution to anyone else. I understand that if I am involved in plagiarism or cheating I will have to sign an official form that I have cheated and that this form will be stored in my official university record. I also understand that I will receive a grade of 0 for the involved assignment for my first offense and that I will receive a grade of F for the course for any additional offense.""
