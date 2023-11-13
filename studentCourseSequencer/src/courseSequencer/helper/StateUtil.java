@@ -145,64 +145,6 @@ public class StateUtil {
      * The method decides which state the system should be based on number of courses in each state. The state with most number of courses will be the winner.
      * @return group name
      */
-//    public static char presentState() {
-//        int i=0;
-//        int maximum= -1;
-//        int noOfCourse=0;
-//        char group = '\0';
-//        for(;i<4; i++){
-//            if(courses.get(i)!='\0'){
-//                noOfCourse+=1;
-//            }
-//        }
-//        if(maximum<noOfCourse){
-//            maximum=noOfCourse;
-//            group='A';
-//        }
-//
-//        for(;i<8; i++){
-//            if(courses.get(i)!='\0'){
-//                noOfCourse+=1;
-//            }
-//        }
-//        if(maximum<noOfCourse){
-//            maximum=noOfCourse;
-//            group='E';
-//        }
-//
-//        for(;i<12; i++){
-//            if(courses.get(i)!='\0'){
-//                noOfCourse+=1;
-//            }
-//        }
-//        if(maximum<noOfCourse){
-//            maximum=noOfCourse;
-//            group='I';
-//        }
-
-//        for(;i<16; i++){
-//            if(courses.get(i)!='\0'){
-//                noOfCourse+=1;
-//            }
-//        }
-//        if(maximum<noOfCourse){
-//            maximum=noOfCourse;
-//            group='M';
-//        }
-//
-//        for(;i<26; i++){
-//            if(courses.get(i)!='\0'){
-//                noOfCourse+=1;
-//            }
-//        }
-//        if(maximum<noOfCourse){
-//            maximum=noOfCourse;
-//            group='Q';
-//        }
-//
-//        return group;
-//    }
-
     public static char presentState() {
         int i=25;
         int maximum= -1;

@@ -8,8 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * The class reads the input from a file and calls registerCourses in the context class.
@@ -51,8 +49,8 @@ public class CourseAllocator {
             }
             results.setStudentID(input[0].replace(input[0].substring(input[0].length() - 1), ""));
 
-            for (int i = 0; i < subjectsRequested.size(); i++) {
-                courseSequencer.registerCourses(subjectsRequested.get(i));
+            for (Character character : subjectsRequested) {
+                courseSequencer.registerCourses(character);
 
                 for (int j = 0; j < StateUtil.waitList.size(); j++) {
                     courseSequencer.registerCourses(StateUtil.waitList.remove(0));
@@ -72,7 +70,7 @@ public class CourseAllocator {
         }
         catch (NullPointerException e){
             printToTheFile("Input file is empty.",FileNames.getErrorFile());
-            System.out.println("Input file is empty.");
+            MyLogger.writeMessage("Input file is empty.", MyLogger.DebugLevel.ERROR);
             e.printStackTrace();
         }
         finally {
@@ -92,7 +90,7 @@ public class CourseAllocator {
             Files.deleteIfExists(myPath);
         }
         catch(IOException e){
-            System.err.println("Unknown File exception.");
+            MyLogger.writeMessage("Unknown file.", MyLogger.DebugLevel.ERROR);
             e.printStackTrace();
             System.exit(0);
         }
@@ -104,7 +102,7 @@ public class CourseAllocator {
      */
     public void argsCheck(String[] args){
         if (args.length != 3 || args[0].equals("${arg0}") || args[0].isEmpty() || args[1].equals("${arg1}") || args[1].isEmpty() || args[2].equals("${arg2}") || args[2].isEmpty()) {
-            System.err.println("Error: Incorrect number of arguments. Program accepts 3 arguments.");
+            MyLogger.writeMessage("Error: Incorrect number of arguments. Program accepts 3 arguments.", MyLogger.DebugLevel.ERROR);
             System.exit(0);
         }
     }

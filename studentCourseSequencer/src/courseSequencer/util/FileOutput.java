@@ -25,11 +25,11 @@ public class FileOutput implements FileDisplayInterface, StdoutDisplayInterface 
     }
 
     public void printOutputToStdout(String output){
-        System.out.print(output);
+        MyLogger.writeMessage(output, MyLogger.DebugLevel.ALL);
     }
 
     public void printErrorToStdout(String errorMessage){
-        System.err.println(errorMessage);
+        MyLogger.writeMessage(errorMessage, MyLogger.DebugLevel.ERROR);
     }
 
     public String toString(){

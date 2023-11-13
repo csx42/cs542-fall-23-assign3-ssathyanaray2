@@ -68,7 +68,7 @@ public class Results {
         stringBuilder.append("-- "+semester+" "+stateChange);
         stringBuilder.append(message);
 
-        System.out.println(stringBuilder.toString());
+        MyLogger.writeMessage(stringBuilder.toString(), MyLogger.DebugLevel.ALL);
 
         printToTheFile(stringBuilder.toString(), FileNames.getOutputFile());
     }

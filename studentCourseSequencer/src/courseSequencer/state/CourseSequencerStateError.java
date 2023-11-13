@@ -1,6 +1,7 @@
 package courseSequencer.state;
 
 import courseSequencer.helper.StateUtil;
+import courseSequencer.util.MyLogger;
 import courseSequencer.util.Results;
 
 public class CourseSequencerStateError implements CourseSequencerStateI {
@@ -20,7 +21,7 @@ public class CourseSequencerStateError implements CourseSequencerStateI {
         System.exit(0);
     }
     public void changeGroup(){
-        System.out.println("invalid operation");
+        MyLogger.writeMessage("Invalid Operation.", MyLogger.DebugLevel.ERROR);
     }
 
     @Override
