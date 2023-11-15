@@ -13,7 +13,9 @@ Following are the commands and the instructions to run ANT on your project.
 ## Instruction to clean:
 
 Go inside the cs542-fall-23-assign3-ssathyanaray2 folder and then execute the below command.
+
 **Command: ant -buildfile studentCourseSequencer/src/build.xml clean**
+
 Description: It cleans up all the .class files that were generated when you
 compiled your code.
 
