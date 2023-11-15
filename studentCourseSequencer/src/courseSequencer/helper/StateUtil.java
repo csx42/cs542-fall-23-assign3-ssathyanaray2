@@ -76,7 +76,7 @@ public class StateUtil {
      * @param courseSequencer context class object
      * @param results results object
      */
-    public  boolean processCourse(char course, char start, int group, CourseSequencer courseSequencer, Results results)
+    public boolean processCourse(char course, char start, int group, CourseSequencer courseSequencer, Results results)
     {
         if(course=='\0'){
             waitList.add(course);
@@ -145,7 +145,7 @@ public class StateUtil {
      * The method decides which state the system should be based on number of courses in each state. The state with most number of courses will be the winner.
      * @return group name
      */
-    public  char presentState() {
+    public char presentState() {
         int i=25;
         int maximum= -1;
         int noOfCourse=0;
@@ -161,6 +161,8 @@ public class StateUtil {
             group='Q';
         }
 
+        noOfCourse = 0;
+
         for(;i>11; i--){
             if(courses.get(i)!='\0'){
                 noOfCourse+=1;
@@ -170,6 +172,8 @@ public class StateUtil {
             maximum=noOfCourse;
             group='M';
         }
+
+        noOfCourse = 0;
 
         for(;i>7; i--){
             if(courses.get(i)!='\0'){
@@ -181,6 +185,8 @@ public class StateUtil {
             group='I';
         }
 
+        noOfCourse = 0;
+
         for(;i>3; i--){
             if(courses.get(i)!='\0'){
                 noOfCourse+=1;
@@ -190,6 +196,8 @@ public class StateUtil {
             maximum=noOfCourse;
             group='E';
         }
+
+        noOfCourse = 0;
 
         for(;i>-1; i--){
             if(courses.get(i)!='\0'){

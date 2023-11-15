@@ -54,7 +54,8 @@ public class CourseAllocator {
             for (Character character : subjectsRequested) {
                 courseSequencer.registerCourses(character, stateUtil);
 
-                for (int j = 0; j < stateUtil.waitList.size(); j++) {
+                int size = stateUtil.waitList.size();
+                for (int j = 0; j < size; j++) {
                     courseSequencer.registerCourses(stateUtil.waitList.remove(0),stateUtil);
                 }
             }
@@ -63,7 +64,8 @@ public class CourseAllocator {
 
             stateUtil.waitList.add('\0');
 
-            for(int j=0; j<stateUtil.waitList.size(); j++){
+            int size = stateUtil.waitList.size();
+            for(int j=0; j<size; j++){
                 courseSequencer.registerCourses(stateUtil.waitList.remove(0),stateUtil);
             }
 
