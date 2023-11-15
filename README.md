@@ -14,7 +14,7 @@ Following are the commands and the instructions to run ANT on your project.
 
 Go inside the cs542-fall-23-assign3-ssathyanaray2 folder and then execute the below command.
 
-#### Command: ant -buildfile studentCourseSequencer/src/build.xml clean
+**Command: ant -buildfile studentCourseSequencer/src/build.xml clean**
 
 Description: It cleans up all the .class files that were generated when you
 compiled your code.
@@ -24,7 +24,7 @@ compiled your code.
 
 Go inside the cs542-fall-23-assign3-ssathyanaray2 folder and then execute the below command.
 
-#### Command: ant -buildfile studentCourseSequencer/src/build.xml all
+**Command: ant -buildfile studentCourseSequencer/src/build.xml all**
 
 Description: Compiles your code and generates .class files inside the BUILD folder.
 
@@ -33,9 +33,9 @@ Description: Compiles your code and generates .class files inside the BUILD fold
 
 Go inside the cs542-fall-23-assign3-ssathyanaray2 folder and then execute the below command.
 
-**Three arguments are required to run the project. **
+**Three arguments are required to run the project.**
 
-#### Command: ant -buildfile studentCourseSequencer/src/build.xml run -Darg0=input.txt -Darg1=output.txt -Darg2=error.txt
+**Command: ant -buildfile studentCourseSequencer/src/build.xml run -Darg0=input.txt -Darg1=output.txt -Darg2=error.txt**
 
 Description: Runs the code and generates output. 
 
