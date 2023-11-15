@@ -35,37 +35,66 @@ public class StateUtil {
      */
     public  void changeGroup(CourseSequencer courseSequencer, Results results){
         CourseSequencerStateI oldState = courseSequencer.getState();
-        CourseSequencerStateI newState = null;
+        int s;
+        if(oldState == courseSequencer.stateOne){
+            s = 0;
+        }
+        else if(oldState == courseSequencer.stateTwo){
+            s = 1;
+        }
+        else if(oldState == courseSequencer.stateThree){
+            s = 2;
+        }
+        else if(oldState == courseSequencer.stateFour){
+            s = 3;
+        }
+        else{
+            s = 4;
+        }
+
         if(isGraduated()){
             courseSequencer.setState(courseSequencer.graduated);
         }
         else {
-            char state = presentState();
-            if(state=='A'){
+            int state = getNextState(s);
+            if(state!=s){
+                results.incrementStateChange();
+            }
+
+            if(state==0){
                 courseSequencer.setState(courseSequencer.stateOne);
-                newState = courseSequencer.stateOne;
             }
-            else if(state=='E'){
+            else if(state==1){
                 courseSequencer.setState(courseSequencer.stateTwo);
-                newState = courseSequencer.stateTwo;
             }
-            else if(state=='I'){
+            else if(state==2){
                 courseSequencer.setState(courseSequencer.stateThree);
-                newState = courseSequencer.stateThree;
             }
-            else if(state=='M'){
+            else if(state==3){
                 courseSequencer.setState(courseSequencer.stateFour);
-                newState = courseSequencer.stateFour;
             }
             else{
                 courseSequencer.setState(courseSequencer.stateFive);
-                newState = courseSequencer.stateFive;
-            }
-
-            if(newState!=oldState){
-                results.incrementStateChange();
             }
         }
+    }
+
+    /**
+     * The method finds out the if any state has more courses compared to present state.
+     * @param presentGroup present state
+     * @return index of next state.
+     */
+    public int getNextState(int presentGroup){
+        int maximum = group[presentGroup];
+        int nextGrp = presentGroup;
+        for(int i=0; i<group.length; i++){
+            if(i!=presentGroup && maximum<group[i]){
+                maximum = group[i];
+                nextGrp = i;
+            }
+        }
+        return nextGrp;
+
     }
 
     /**
@@ -139,77 +168,6 @@ public class StateUtil {
             results.incrementSemester();
             semesterSubjects = new ArrayList<>();
         }
-    }
-
-    /**
-     * The method decides which state the system should be based on number of courses in each state. The state with most number of courses will be the winner.
-     * @return group name
-     */
-    public char presentState() {
-        int i=25;
-        int maximum= -1;
-        int noOfCourse=0;
-        char group = '\0';
-
-        for(;i>15; i--){
-            if(courses.get(i)!='\0'){
-                noOfCourse+=1;
-            }
-        }
-        if(maximum<noOfCourse){
-            maximum=noOfCourse;
-            group='Q';
-        }
-
-        noOfCourse = 0;
-
-        for(;i>11; i--){
-            if(courses.get(i)!='\0'){
-                noOfCourse+=1;
-            }
-        }
-        if(maximum<noOfCourse){
-            maximum=noOfCourse;
-            group='M';
-        }
-
-        noOfCourse = 0;
-
-        for(;i>7; i--){
-            if(courses.get(i)!='\0'){
-                noOfCourse+=1;
-            }
-        }
-        if(maximum<noOfCourse){
-            maximum=noOfCourse;
-            group='I';
-        }
-
-        noOfCourse = 0;
-
-        for(;i>3; i--){
-            if(courses.get(i)!='\0'){
-                noOfCourse+=1;
-            }
-        }
-        if(maximum<noOfCourse){
-            maximum=noOfCourse;
-            group='E';
-        }
-
-        noOfCourse = 0;
-
-        for(;i>-1; i--){
-            if(courses.get(i)!='\0'){
-                noOfCourse+=1;
-            }
-        }
-        if(maximum<noOfCourse){
-            maximum=noOfCourse;
-            group='A';
-        }
-
-        return group;
     }
 
 
